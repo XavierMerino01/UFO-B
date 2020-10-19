@@ -5,21 +5,35 @@ using UnityEngine;
 public class ScriptPlayer : MonoBehaviour
 {
     [SerializeField]
-    float velocitat = 3;
+    float forsa = 3;
+    float x, y;
+    Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x, y;
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
+    }
 
-        x= Input.GetAxis("Horizontal");
-        y= Input.GetAxis("Vertical");
-        //print("Horizontal: " + x + "/Vertical: "+y);
-        transform.Translate(x*Time.deltaTime*velocitat, y * Time.deltaTime*velocitat, 0);
+    private void FixedUpdate()
+    {
+        rb.AddForce(new Vector2(x*forsa, y*forsa));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if (collision.tag == "PickUp") Destroy(collision.gameObject);
+        if (collision.CompareTag("PickUp"))
+        {
+            Destroy(collision.gameObject);
+            ScrControlGame.punts += 5;
+            print("La teva puntuació és: " + ScrControlGame.punts);
+        }
     }
 }
