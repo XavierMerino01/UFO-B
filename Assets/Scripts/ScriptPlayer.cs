@@ -8,6 +8,7 @@ public class ScriptPlayer : MonoBehaviour
     float forsa = 3;
     float x, y;
     Rigidbody2D rb;
+    ScriptPickUp scrP;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +32,10 @@ public class ScriptPlayer : MonoBehaviour
         //if (collision.tag == "PickUp") Destroy(collision.gameObject);
         if (collision.CompareTag("PickUp"))
         {
+            scrP = collision.GetComponent<ScriptPickUp>();
+            ScrControlGame.punts += scrP.valor;
             Destroy(collision.gameObject);
-            ScrControlGame.punts += 5;
-            print("La teva puntuació és: " + ScrControlGame.punts);
+            ScrControlGame.pickups--;
         }
     }
 }

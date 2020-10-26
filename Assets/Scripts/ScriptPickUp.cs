@@ -8,10 +8,12 @@ public class ScriptPickUp : MonoBehaviour
     [SerializeField]
     int angle = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public int valor = 1;
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        ScrControlGame.pickups++;
     }
 
     // Update is called once per frame
