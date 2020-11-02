@@ -9,6 +9,8 @@ public class ScriptPlayer : MonoBehaviour
     float x, y;
     Rigidbody2D rb;
     ScriptPickUp scrP;
+    AudioSource a;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,10 +34,21 @@ public class ScriptPlayer : MonoBehaviour
         //if (collision.tag == "PickUp") Destroy(collision.gameObject);
         if (collision.CompareTag("PickUp"))
         {
+            AudioSource audioP;
+
+            audioP = collision.GetComponent<AudioSource>();
+            AudioSource.PlayClipAtPoint(audioP.clip, Camera.main.transform.position);
+
             scrP = collision.GetComponent<ScriptPickUp>();
             ScrControlGame.punts += scrP.valor;
             Destroy(collision.gameObject);
             ScrControlGame.pickups--;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        a.Play();
+    }
+
 }

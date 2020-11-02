@@ -33,7 +33,7 @@ public class ScrUI : MonoBehaviour
     {
         puntuació.text = ("Puntuació: "+ScrControlGame.punts);
         pickups.text = ("PickUps restants: " + ScrControlGame.pickups);
-        temps.text = Convert.ToString(Time.fixedTime); 
+        temps.text = Time.time.ToString("0.0"); 
         if (ScrControlGame.pickups == 0)
         {
             finaljuego.text = ("Nivell COMPLETAT!!!");
